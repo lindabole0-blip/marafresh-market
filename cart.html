@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MaraFresh Market - Your Cart</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+       <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</a>
+        <a href="contact.html">Contact Us</a>
+       </nav> 
+
+        <h1>Shopping Cart</h1>
+
+        <p>Items you added will appear here.</p>
+
+        <ul id="cart-items"></ul>
+
+        <br>
+
+        <button onclick="placeorder()">Place Order</button>
+        <button onclick="clearCart()">Clear Cart</button>
+
+        <script>
+            let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartList = document.getElementById('cart-items');
+            function displayCart() {
+                cartList.innerHTML = '';
+                cartItems.forEach(function(item, index) {
+                    let li = document.createElement('li');
+                    li.innerHTML = item +
+                    ' <button onclick="removeFromCart('+index+')">Remove</button>';
+                    cartList.appendChild(li);
+                });
+            }
+
+            function removeFromCart(index) {
+                cartItems.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cartItems));
+                displayCart();
+            }
+
+            function clearCart() {
+                localStorage.removeItem('cart');
+                cartItems = [];
+                displayCart();
+            }
+            function placeorder() {
+                alert('Order placed successfully!');
+                clearCart();
+            }
+
+            displayCart();
+        </script>
+
+    </body>
+</html>
+
+
+    
